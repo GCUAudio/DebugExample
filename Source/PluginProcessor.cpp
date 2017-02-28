@@ -127,7 +127,7 @@ void DebugExampleAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBu
             channelDataR[i] = channelDataR[i] * sin(pDash);
             
             // Will result in significant hit on CPU
-            for (int j = 0; j < numSamples * 2; j++)
+            for (int j = 0; j < numSamples * 1024; j++)
             {
                 pDash = 500 / 250 / 2;
             }
