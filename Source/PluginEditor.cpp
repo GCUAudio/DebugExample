@@ -99,8 +99,8 @@ void DebugExampleAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWas
     if (sliderThatWasMoved == sliderPanPosition)
     {
         //[UserSliderCode_sliderPanPosition] -- add your slider handling code here..
-        processor.constantPower = sliderPanPosition->getValue(); // Intentional fault 1
-        //processor.panPosition = sliderPanPosition->getValue(); // Intentional bug 1
+        //processor.constantPower = sliderPanPosition->getValue(); // Intentional fault 1
+        processor.panPosition = sliderPanPosition->getValue(); // Intentional bug 1
         //[/UserSliderCode_sliderPanPosition]
     }
 
@@ -116,8 +116,8 @@ void DebugExampleAudioProcessorEditor::buttonClicked (Button* buttonThatWasClick
     if (buttonThatWasClicked == buttonPanningAlgorithm)
     {
         //[UserButtonCode_buttonPanningAlgorithm] -- add your button handler code here..
-        processor.panPosition = buttonPanningAlgorithm->getToggleState(); // Intentional bug 2
-        //processor.constantPower = buttonPanningAlgorithm->getToggleState();
+        //processor.panPosition = buttonPanningAlgorithm->getToggleState(); // Intentional bug 2
+        processor.constantPower = buttonPanningAlgorithm->getToggleState();
         //[/UserButtonCode_buttonPanningAlgorithm]
     }
 

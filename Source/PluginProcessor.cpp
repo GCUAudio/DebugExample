@@ -115,6 +115,8 @@ void DebugExampleAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBu
     float temp = panPosition + 1.0;
     float pDash = 0.0;
     
+    constantPower = false;
+    
     // Loop runs from 0 to number of samples in the block
     for (int i = 0; i < numSamples; ++i)
     {
@@ -126,7 +128,7 @@ void DebugExampleAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBu
             channelDataL[i] = channelDataL[i] * cos(pDash);
             channelDataR[i] = channelDataR[i] * sin(pDash);
             
-            // Will result in significant hit on CPU
+            // Added intentionall to cause a significant bottleneck and hit on CPU
             for (int j = 0; j < numSamples * 1024; j++)
             {
                 pDash = 500 / 250 / 2;
