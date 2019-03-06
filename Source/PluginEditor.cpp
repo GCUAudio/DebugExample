@@ -33,16 +33,6 @@ DebugExampleAudioProcessorEditor::DebugExampleAudioProcessorEditor (DebugExample
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    addAndMakeVisible (sliderPanPosition = new Slider ("new slider"));
-    sliderPanPosition->setRange (-1, 1, 0);
-    sliderPanPosition->setSliderStyle (Slider::Rotary);
-    sliderPanPosition->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
-    sliderPanPosition->addListener (this);
-
-    addAndMakeVisible (buttonPanningAlgorithm = new ToggleButton ("new toggle button"));
-    buttonPanningAlgorithm->setButtonText (TRANS("Linear / Constant"));
-    buttonPanningAlgorithm->addListener (this);
-
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -51,7 +41,6 @@ DebugExampleAudioProcessorEditor::DebugExampleAudioProcessorEditor (DebugExample
 
 
     //[Constructor] You can add your own custom stuff here..
-    startTimer(200);//starts timer with interval of 200mS
     //[/Constructor]
 }
 
@@ -59,10 +48,6 @@ DebugExampleAudioProcessorEditor::~DebugExampleAudioProcessorEditor()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
-
-    sliderPanPosition = nullptr;
-    buttonPanningAlgorithm = nullptr;
-
 
     //[Destructor]. You can add your own custom destruction code here..
     //[/Destructor]
@@ -85,53 +70,14 @@ void DebugExampleAudioProcessorEditor::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    sliderPanPosition->setBounds (24, 32, 176, 120);
-    buttonPanningAlgorithm->setBounds (72, 184, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
-}
-
-void DebugExampleAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
-{
-    //[UsersliderValueChanged_Pre]
-    //[/UsersliderValueChanged_Pre]
-
-    if (sliderThatWasMoved == sliderPanPosition)
-    {
-        //[UserSliderCode_sliderPanPosition] -- add your slider handling code here..
-        //processor.constantPower = sliderPanPosition->getValue(); // Intentional fault 1
-        processor.panPosition = sliderPanPosition->getValue(); // Intentional bug 1
-        //[/UserSliderCode_sliderPanPosition]
-    }
-
-    //[UsersliderValueChanged_Post]
-    //[/UsersliderValueChanged_Post]
-}
-
-void DebugExampleAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
-{
-    //[UserbuttonClicked_Pre]
-    //[/UserbuttonClicked_Pre]
-
-    if (buttonThatWasClicked == buttonPanningAlgorithm)
-    {
-        //[UserButtonCode_buttonPanningAlgorithm] -- add your button handler code here..
-        //processor.panPosition = buttonPanningAlgorithm->getToggleState(); // Intentional bug 2
-        processor.constantPower = buttonPanningAlgorithm->getToggleState();
-        //[/UserButtonCode_buttonPanningAlgorithm]
-    }
-
-    //[UserbuttonClicked_Post]
-    //[/UserbuttonClicked_Post]
 }
 
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-void DebugExampleAudioProcessorEditor::timerCallback()
-{
-    //exchange any data you want between UI elements and the Plugin "ourProcessor"
-}
+
 //[/MiscUserCode]
 
 

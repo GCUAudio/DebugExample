@@ -54,8 +54,9 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     const float pi = 3.14159;
-    float panPosition = 0.0;
-    bool constantPower = false;
+
+	AudioParameterFloat* panPosition;
+	AudioParameterBool* constantPower;
 
 private:
     //==============================================================================

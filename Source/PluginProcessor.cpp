@@ -15,6 +15,12 @@
 //==============================================================================
 DebugExampleAudioProcessor::DebugExampleAudioProcessor()
 {
+	panPosition = new AudioParameterFloat("panPosition", "Pan Position", -1.0f, 1.0f, 0.0f);
+	addParameter(panPosition);
+
+	constantPower = new AudioParameterBool("constantPower", "Constant Power", false);
+	addParameter(constantPower);
+
 }
 
 DebugExampleAudioProcessor::~DebugExampleAudioProcessor()
@@ -112,23 +118,23 @@ void DebugExampleAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBu
     float *channelDataR = buffer.getWritePointer(1);
     
     // Calculate out of for loop for efficiency
-    float temp = panPosition + 1.0;
+    float temp = panPosition->get() + 1.0f;
     float pDash = 0.0;
     
-    constantPower = false;
+    *constantPower = false;
     
     // Loop runs from 0 to number of samples in the block
     for (int i = 0; i < numSamples; ++i)
     {
         
-        if(constantPower)
+        if(constantPower->get())
         {
             // Constant power panning algorithm
-            pDash = (temp * pi) / 4;
+            pDash = (temp * MathConstants<float>::pi) / 4.0f;
             channelDataL[i] = channelDataL[i] * cos(pDash);
             channelDataR[i] = channelDataR[i] * sin(pDash);
             
-            // Added intentionall to cause a significant bottleneck and hit on CPU
+            // Added intentional to cause a significant bottleneck and hit on CPU
             for (int j = 0; j < numSamples * 1024; j++)
             {
                 pDash = 500 / 250 / 2;
@@ -138,8 +144,8 @@ void DebugExampleAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBu
         else
         {
             // Linear panning algorithm
-            pDash = temp / 2;
-            channelDataL[i] = channelDataL[i] * (1.0 - pDash);
+            pDash = temp / 2.0f;
+            channelDataL[i] = channelDataL[i] * (1.0f - pDash);
             channelDataR[i] = channelDataR[i] * pDash;
         }
         
@@ -155,7 +161,7 @@ bool DebugExampleAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* DebugExampleAudioProcessor::createEditor()
 {
-    return new DebugExampleAudioProcessorEditor (*this);
+    return new GenericAudioProcessorEditor (this);
 }
 
 //==============================================================================

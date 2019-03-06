@@ -34,10 +34,7 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class DebugExampleAudioProcessorEditor  : public AudioProcessorEditor,
-                                          public Timer,
-                                          public SliderListener,
-                                          public ButtonListener
+class DebugExampleAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
     //==============================================================================
@@ -46,14 +43,10 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void timerCallback();
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
-    void sliderValueChanged (Slider* sliderThatWasMoved) override;
-    void buttonClicked (Button* buttonThatWasClicked) override;
-
 
 
 private:
@@ -62,9 +55,6 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> sliderPanPosition;
-    ScopedPointer<ToggleButton> buttonPanningAlgorithm;
-
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DebugExampleAudioProcessorEditor)
