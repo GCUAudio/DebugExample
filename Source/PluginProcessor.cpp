@@ -120,7 +120,6 @@ void DebugExampleAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBu
     // Calculate out of for loop for efficiency
     float temp = panPosition->get() + 1.0f;
     float pDash = 0.0;
-    
     *constantPower = false;
     
     // Loop runs from 0 to number of samples in the block
@@ -132,13 +131,11 @@ void DebugExampleAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBu
             // Constant power panning algorithm
             pDash = (temp * MathConstants<float>::pi) / 4.0f;
             channelDataL[i] = channelDataL[i] * cos(pDash);
-            channelDataR[i] = channelDataR[i] * sin(pDash);
+            channelDataL[i] = channelDataR[i] * sin(pDash);
             
             // Added intentional to cause a significant bottleneck and hit on CPU
-            for (int j = 0; j < numSamples * 1024; j++)
-            {
-                pDash = 500 / 250 / 2;
-            }
+            for (int j = 0; j < numSamples * 1000024; j++)
+                pDash = 500 / 250 / 2 / 1;
 
         }
         else
@@ -146,7 +143,7 @@ void DebugExampleAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBu
             // Linear panning algorithm
             pDash = temp / 2.0f;
             channelDataL[i] = channelDataL[i] * (1.0f - pDash);
-            channelDataR[i] = channelDataR[i] * pDash;
+            channelDataL[i] = channelDataR[i] * pDash;
         }
         
     }

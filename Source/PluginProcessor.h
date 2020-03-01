@@ -52,8 +52,6 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-    
-    const float pi = 3.14159;
 
 	AudioParameterFloat* panPosition;
 	AudioParameterBool* constantPower;
