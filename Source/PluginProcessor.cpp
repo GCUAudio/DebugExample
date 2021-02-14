@@ -90,6 +90,7 @@ void DebugExampleAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    *panPosition = 1.0f;
 }
 
 void DebugExampleAudioProcessor::releaseResources()
@@ -158,7 +159,7 @@ bool DebugExampleAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* DebugExampleAudioProcessor::createEditor()
 {
-    return new GenericAudioProcessorEditor (this);
+    return new GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================
